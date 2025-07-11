@@ -6,25 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Homework 11</title>
     <script type="module" crossorigin src="/goit-js-hw-11/index.js"></script>
-    <link rel="modulepreload" crossorigin href="/goit-js-hw-11/assets/vendor-BrddEoy-.js">
+    <link rel="modulepreload" crossorigin href="/goit-js-hw-11/assets/vendor-DqB7j7Ix.js">
     <link rel="stylesheet" crossorigin href="/goit-js-hw-11/assets/vendor-CWKLx11g.css">
-    <link rel="stylesheet" crossorigin href="/goit-js-hw-11/assets/index-Bxuc-rPl.css">
+    <link rel="stylesheet" crossorigin href="/goit-js-hw-11/assets/index-CVuNda1c.css">
   </head>
   <body>
-   <div class="container">
+    
+    <main>
+    <div class="container">
       <form class="form">
-        <input
-          type="text"
-          name="search"
-          class="text-input"
-          placeholder="Search images..."
-        />
-        <button type="submit" class="search-btn">Search</button>
+        <label>
+          <input type="text" name="search-text" placeholder="Search images..." required>
+        </label>
+        <button type="submit">Search</button>
       </form>
 
-      <ul class="gallery" id="gallery"></ul>
-      <div class="loader visually-hidden"></div>
+      <span class="loader"></span>
+
+      <ul class="gallery">
+      </ul>
     </div>
+  </main>
 
 
   </body>

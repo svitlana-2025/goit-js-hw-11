@@ -1,12 +1,26 @@
-import{i as l,S as u}from"./assets/vendor-BrddEoy-.js";(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))n(e);new MutationObserver(e=>{for(const r of e)if(r.type==="childList")for(const s of r.addedNodes)s.tagName==="LINK"&&s.rel==="modulepreload"&&n(s)}).observe(document,{childList:!0,subtree:!0});function i(e){const r={};return e.integrity&&(r.integrity=e.integrity),e.referrerPolicy&&(r.referrerPolicy=e.referrerPolicy),e.crossOrigin==="use-credentials"?r.credentials="include":e.crossOrigin==="anonymous"?r.credentials="omit":r.credentials="same-origin",r}function n(e){if(e.ep)return;e.ep=!0;const r=i(e);fetch(e.href,r)}})();const c=document.querySelector(".loader");function d(o,t,i){l.show({iconUrl:o,titleColor:"White",titleSize:"24px",message:t,messageColor:"White",messageSize:"16px",backgroundColor:i,position:"topRight",timeout:3e3})}function y(){c.classList.remove("visually-hidden")}function m(){c.classList.add("visually-hidden")}function g(o){o.innerHTML=""}function f(o){return o.map(t=>`<li class="gallery-item">
-    <a href="${t.largeImageURL}" data-lightbox="gallery-link">
-      <img class="gallery-image" src="${t.webformatURL}" alt="${t.tags}">
-    </a>
-    <div class="gallery-info">
-      <p><b>Likes:</b> ${t.likes}</p>
-      <p><b>Views:</b> ${t.views}</p>
-      <p><b>Comments:</b> ${t.comments}</p>
-      <p><b>Downloads:</b> ${t.downloads}</p>
-    </div></li>
-  `).join("")}function p(o){const t="43325485-b0026802577d8a210f4fcd054",n=`https://pixabay.com/api/?${new URLSearchParams({key:t,q:o,image_type:"photo",orientation:"horizontal",safesearch:!0})}`;return fetch(n).then(e=>{if(!e.ok)throw new Error(e.status);return e.json()})}const h="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+PCFET0NUWVBFIHN2ZyAgUFVCTElDICctLy9XM0MvL0RURCBTVkcgMS4wLy9FTicgICdodHRwOi8vd3d3LnczLm9yZy9UUi8yMDAxL1JFQy1TVkctMjAwMTA5MDQvRFREL3N2ZzEwLmR0ZCc+PHN2ZyBoZWlnaHQ9IjMyIiBzdHlsZT0ib3ZlcmZsb3c6dmlzaWJsZTtlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+PGc+PGcgaWQ9IkVycm9yXzFfIj48ZyBpZD0iRXJyb3IiPjxjaXJjbGUgY3g9IjE2IiBjeT0iMTYiIGlkPSJCRyIgcj0iMTYiIHN0eWxlPSJmaWxsOiNENzI4Mjg7Ii8+PHBhdGggZD0iTTE0LjUsMjVoM3YtM2gtM1YyNXogTTE0LjUsNnYxM2gzVjZIMTQuNXoiIGlkPSJFeGNsYW1hdG9yeV94NUZfU2lnbiIgc3R5bGU9ImZpbGw6I0U2RTZFNjsiLz48L2c+PC9nPjwvZz48L3N2Zz4=",I=document.querySelector(".form");document.querySelector(".text-input");const a=document.querySelector(".gallery"),b=new u(".gallery a",{captions:!0,captionDelay:250,captionsData:"alt",captionPosition:"bottom"});I.addEventListener("submit",M);function M(o){o.preventDefault();const t=o.currentTarget.search.value.trim();y(),g(a),p(t).then(i=>{if(console.log(i),i.hits.length===0)return d(h,"Sorry, there are no images matching your search query. Please try again!","#ef4040");const n=f(i.hits);a.innerHTML=n,b.refresh()}).catch(i=>{console.error("Error:",i)}).finally(()=>{m()})}
+import{a as c,S as d,i as n}from"./assets/vendor-DqB7j7Ix.js";(function(){const o=document.createElement("link").relList;if(o&&o.supports&&o.supports("modulepreload"))return;for(const t of document.querySelectorAll('link[rel="modulepreload"]'))s(t);new MutationObserver(t=>{for(const i of t)if(i.type==="childList")for(const a of i.addedNodes)a.tagName==="LINK"&&a.rel==="modulepreload"&&s(a)}).observe(document,{childList:!0,subtree:!0});function r(t){const i={};return t.integrity&&(i.integrity=t.integrity),t.referrerPolicy&&(i.referrerPolicy=t.referrerPolicy),t.crossOrigin==="use-credentials"?i.credentials="include":t.crossOrigin==="anonymous"?i.credentials="omit":i.credentials="same-origin",i}function s(t){if(t.ep)return;t.ep=!0;const i=r(t);fetch(t.href,i)}})();const f="50678696-ed6f097088bf5690dd98584b9",u="https://pixabay.com/api/";function m(e){const o={key:f,q:e,image_type:"photo",orientation:"horizontal",safesearch:!0};return c.get(u,{params:o}).then(r=>r.data).catch(r=>{throw console.error("Error fetching images:",r),new Error("Failed to fetch images from Pixabay.")})}const p=new d(".gallery a",{captionsData:"alt",captionDelay:250});function y(e){const o=document.querySelector(".gallery");if(!o){console.error("Gallery container not found.");return}const r=e.map(s=>`
+        <li class="gallery-item">
+            <a href="${s.largeImageURL}">
+                <img class="gallery-image" src="${s.webformatURL}" alt="${s.tags}">
+                <div class="image-info">
+                    <div class="info-item">
+                        <b>Likes</b>
+                        <p>${s.likes}</p>
+                    </div>
+                    <div class="info-item">
+                        <b>Views</b>
+                        <p>${s.views}</p>
+                    </div>
+                    <div class="info-item">
+                        <b>Comments</b>
+                        <p>${s.comments}</p>
+                    </div>
+                    <div class="info-item">
+                        <b>Downloads</b>
+                        <p>${s.downloads}</p>
+                    </div>
+                </div>
+            </a>
+        </li>
+    `).join("");o.insertAdjacentHTML("beforeend",r),p.refresh()}function g(){const e=document.querySelector(".gallery");e&&(e.innerHTML="")}function h(){const e=document.querySelector(".loader");e&&e.classList.add("is-visible")}function b(){const e=document.querySelector(".loader");e&&e.classList.remove("is-visible")}const l=document.querySelector(".form"),v=l.elements["search-text"];l.addEventListener("submit",async e=>{e.preventDefault();const o=v.value.trim();if(o===""){n.error({title:"Error",message:"Search field cannot be empty!",position:"topRight"});return}g(),h();try{const r=await m(o);r.hits.length===0?n.info({message:"❌ Sorry, there are no images matching your search query. Please try again!",position:"topRight",icon:!1,close:!1,backgroundColor:"#ef4040",maxWidth:"432px",minHeight:"88px",html:!0}):y(r.hits)}catch(r){n.error({title:"Error",message:r.message||"An error occurred while fetching images. Please try again later.",position:"topRight"})}finally{b(),l.reset()}});
 //# sourceMappingURL=index.js.map
