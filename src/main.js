@@ -1,51 +1,66 @@
-// Описаний у документації
-import SimpleLightbox from "simplelightbox";
-// Додатковий імпорт стилів
-import "simplelightbox/dist/simple-lightbox.min.css";
-// Описаний у документації
-import iziToast from "izitoast";
-// Додатковий імпорт стилів
-import "izitoast/dist/css/iziToast.min.css";
-import { showMessage } from './js/render-functions.js';
-import { hiddenLoader,showLoader } from './js/render-functions.js';
-import { searchForm } from './js/pixabay-api.js';
-import { createGalleryMarkup } from './js/render-functions.js';
-import { clearGallery } from './js/render-functions.js';
-import errorIcon from './img/381599_error_icon.svg'
+import { getImagesByQuery } from './js/pixabay-api.js';
+import {
+  createGallery,
+  clearGallery,
+  showLoader,
+  hideLoader,
+} from './js/render-functions.js';
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
 
-const form = document.querySelector('.form');
-const input = document.querySelector('.text-input');
-const gallery = document.querySelector('.gallery');
-    const lightbox = new SimpleLightbox('.gallery a', 
-{ 
-    captions: true,
-    captionDelay: 250,
-    captionsData: 'alt',
-    captionPosition: 'bottom', 
-   
-}); 
+const searchForm = document.querySelector('.form');
+const searchInput = searchForm.elements['search-text'];
 
-form.addEventListener("submit", onSubmit);
+searchForm.addEventListener('submit', async event => {
+  event.preventDefault(); // Запобігаємо стандартній відправці форми
 
-function onSubmit(event) {
-    event.preventDefault();
-    const searchQuery = event.currentTarget.search.value.trim();
-    showLoader();
-    clearGallery(gallery);
-    searchForm(searchQuery)
-        .then(res => {console.log(res);
-            if (res.hits.length === 0) {
-                return showMessage(errorIcon, 'Sorry, there are no images matching your search query. Please try again!', '#ef4040');
-            }
-                const galleryMarkup = createGalleryMarkup(res.hits);
-            gallery.innerHTML = galleryMarkup;
-            lightbox.refresh();
-            
-        })
-        .catch(err => {
-            console.error('Error:', err); 
-        })
-        .finally(() => {
-            hiddenLoader();
-        });
-}
+  const query = searchInput.value.trim(); // Отримуємо пошуковий запит та видаляємо зайві пробіли
+
+  // Перевірка на порожній рядок
+  if (query === '') {
+    iziToast.error({
+      title: 'Error',
+      message: 'Search field cannot be empty!',
+      position: 'topRight',
+    });
+    return; // Припиняємо виконання, якщо поле порожнє
+  }
+
+  clearGallery(); // Очищаємо галерею перед новим пошуком
+  showLoader(); // Показуємо лоадер
+
+  try {
+    const data = await getImagesByQuery(query);
+
+    if (data.hits.length === 0) {
+      // Якщо бекенд повернув порожній масив
+      iziToast.info({
+        // title: 'Info',
+        message:
+          '❌ Sorry, there are no images matching your search query. Please try again!',
+        position: 'topRight',
+        icon: false,
+        close: false,
+        backgroundColor: '#ef4040', // Червоний фон
+        maxWidth: '432px', // Задана ширина
+        minHeight: '88px', // Мінімальна висота для наближення до 88px
+        html: true, // Включаємо підтримку HTML у повідомленні
+      });
+    } else {
+      // Якщо знайдені зображення
+      createGallery(data.hits);
+    }
+  } catch (error) {
+    // Обробка помилок HTTP-запиту
+    iziToast.error({
+      title: 'Error',
+      message:
+        error.message ||
+        'An error occurred while fetching images. Please try again later.',
+      position: 'topRight',
+    });
+  } finally {
+    hideLoader(); // Приховуємо лоадер незалежно від результату
+    searchForm.reset(); // Очищаємо форму після пошуку
+  }
+});
